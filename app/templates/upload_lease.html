@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Lease Document</title>
+    <style>
+        :root {
+            --primary-color: #181818;
+            --hover-color: #333333;
+            --error-color: #f8d7da;
+            --error-text-color: #721c24;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto 0;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        input[type="file"] {
+            margin: 10px 0;
+            width: 80%;
+            text-align: center;
+        }
+
+        button[type="submit"] {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: var(--hover-color);
+        }
+
+        /* Style for error messages */
+        .error-messages {
+            background-color: var(--error-color);
+            color: var(--error-text-color);
+            padding: 10px;
+            border: 1px solid #f5c6cb;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+<body>
+    <div class="container">
+        <h1>Upload Lease Document</h1>
+        <!-- Task Status Display -->
+        <p id="taskStatus">Task status will appear here...</p>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="error-messages">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <!-- Form to upload file -->
+        <form id="uploadForm" action="{{ url_for('routes.upload_lease') }}" method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <label for="lease_file">Select a PDF file:</label>
+            {{ form.lease_file() }}
+            <!-- Display validation errors for lease_file field -->
+            {% if form.lease_file.errors %}
+                <div class="error-messages">
+                    {% for error in form.lease_file.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {{ form.submit() }}
+        </form>
+    </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('uploadForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        document.getElementById('taskStatus').innerText = 'Uploading file...'; // Provide feedback
+
+        fetch('{{ url_for("routes.upload_lease") }}', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Task ID:', data.task_id);
+                checkTaskStatus(data.task_id);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('taskStatus').innerText = 'Failed to upload file: ' + error.message;
+            });
+    });
+});
+
+function checkTaskStatus(taskId) {
+    // Make an AJAX request to get the status of the task
+    fetch('/task-status/' + taskId)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('taskStatus').innerText = 'Task Status: ' + data.state + (data.progress ? ' (' + data.progress + '%)' : '');
+
+            // If the task is still pending, wait a second and check again
+            if (data.state === 'PENDING' || data.state === 'STARTED') {
+                setTimeout(function () {
+                    checkTaskStatus(taskId);
+                }, 1000);
+            } else {
+                // Handle finished state (e.g., RESULT, FAILURE)
+                document.getElementById('taskStatus').innerText += '\nResult: ' + data.result;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching task status:', error);
+            document.getElementById('taskStatus').innerText = 'Error fetching task status. Please try again later.';
+        });
+}
+</script>
+</body>
+</html>
+
+

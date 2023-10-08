@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lease Analysis Result</title>
+    <style>
+        :root {
+            --primary-color: #181818;  /* Black as per home.html */
+            --hover-color: #333333;   /* Slightly lighter for hover effect */
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;  /* As per home.html */
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto 0;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;  /* As per home.html */
+            color: #333;
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #555;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            color: #777;
+            width: 80%;
+            text-align: left;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .key {
+            background-color: #e0f0e0;  /* Light green for key clauses */
+        }
+
+        .problematic {
+            background-color: #f0e0e0;  /* Light red for problematic clauses */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Analysis Result</h1>
+
+        <section>
+            <h2>Entities</h2>
+            <ul>
+                {% for entity in entities %}
+                <li>{{ entity }}</li>
+                {% endfor %}
+            </ul>
+            {% if not entities %}
+            <p>No entities detected.</p>
+            {% endif %}
+        </section>
+
+        <section>
+            <h2>Sentences</h2>
+            <ul>
+                {% for sentence in sentences %}
+                <li>{{ sentence }}</li>
+                {% endfor %}
+            </ul>
+            {% if not sentences %}
+            <p>No sentences detected.</p>
+            {% endif %}
+        </section>
+    </div>
+</body>
+
+</html>

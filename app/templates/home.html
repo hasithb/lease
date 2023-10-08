@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lease Analysis App - Analyze your lease documents instantly.">
+
+    <title>Lease Analysis App</title>
+
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Helvetica+Neue&display=swap" rel="stylesheet">
+
+    <!-- AOS Animation Library -->
+    <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
+
+    <script>
+        function toggleDarkMode() {
+            const body = document.querySelector('body');
+            const currentTheme = body.getAttribute('data-theme');
+
+            if (currentTheme === 'light') {
+                body.setAttribute('data-theme', 'dark');
+            } else {
+                body.setAttribute('data-theme', 'light');
+            }
+        }
+    </script>
+</head>
+
+<body data-theme="light">
+
+    <div class="container">
+        <!-- Header Section -->
+        <header data-aos="fade-down">
+            <h1>Welcome to the Lease Analysis App</h1>
+            <!-- Adding Navigation Links -->
+            <nav>
+                <a class="button" href="{{ url_for('routes.home') }}">Home</a>
+                <a class="button" href="{{ url_for('routes.upload_lease') }}">Upload Lease</a>
+            </nav>
+        </header>
+
+        <!-- Features Section -->
+        <section id="features" data-aos="fade-up">
+            <h2>Features</h2>
+            <p>Discover the amazing features of our Lease Analysis App...</p>
+            <!-- Add feature details here -->
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" data-aos="fade-up">
+            <h2>What our users say</h2>
+            <p>Testimonials from our happy customers...</p>
+            <!-- Add testimonials here -->
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" data-aos="fade-up">
+            <h2>Pricing</h2>
+            <p>Choose the best plan for you...</p>
+            <!-- Add pricing details here -->
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" data-aos="fade-up">
+            <h2>Contact Us</h2>
+            <p>Have questions? Reach out to us...</p>
+            <!-- Add contact form or details here -->
+        </section>
+
+        <!-- Footer -->
+        <footer data-aos="fade-up">
+            <p>&copy; 2023 Lease Analysis App. All rights reserved. </p>
+        </footer>
+    </div>
+    <button class="toggle-theme-btn" onclick="toggleDarkMode()" data-aos="fade-up">Toggle Dark Mode</button>
+
+    <!-- AOS Animation Initialization -->
+    <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+
+</html>

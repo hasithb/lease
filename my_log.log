@@ -1,0 +1,20 @@
+Failed to process file: name 'process_your_file' is not defined
+Traceback (most recent call last):
+  File "/Users/HasithB/PycharmProjects/Lease_Analysis_Project/celery_worker.py", line 35, in process_file
+    # Log the exception to a file for debugging.
+NameError: name 'process_your_file' is not defined
+Failed to process file: name 'process_your_file' is not defined
+Traceback (most recent call last):
+  File "/Users/HasithB/PycharmProjects/Lease_Analysis_Project/celery_worker.py", line 35, in process_file
+    # Log the exception to a file for debugging.
+NameError: name 'process_your_file' is not defined
+Failed to process file: name 'process_your_file' is not defined
+Traceback (most recent call last):
+  File "/Users/HasithB/PycharmProjects/Lease_Analysis_Project/celery_worker.py", line 35, in process_file
+    # Log the exception to a file for debugging.
+NameError: name 'process_your_file' is not defined
+Failed to process file: name 'process_your_file' is not defined
+Traceback (most recent call last):
+  File "/Users/HasithB/PycharmProjects/Lease_Analysis_Project/celery_worker.py", line 35, in process_file
+    # Log the exception to a file for debugging.
+NameError: name 'process_your_file' is not defined

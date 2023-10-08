@@ -1,0 +1,30 @@
+app/
+  .DS_Store
+  tasks.py
+  models.py
+  celery_worker.py
+  __init__.py
+  get_path.py
+  forms.py
+  utils.py
+  train_lease_classifier.py
+  __main__.py
+  routes.py
+upload_folder/
+  Model_agreement_for_a_shorthold_assured_tenancy.pdf
+__pycache__/
+  __init__.cpython-39.pyc
+  utils.cpython-39.pyc
+  routes.cpython-39.pyc
+  tasks.cpython-39.pyc
+  models.cpython-39.pyc
+  celery_worker.cpython-39.pyc
+  forms.cpython-39.pyc
+static/
+  styles.css
+templates/
+  home.html
+  register.html
+  login.html
+  analysis_results.html
+  upload_lease.html
